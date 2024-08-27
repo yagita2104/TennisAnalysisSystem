@@ -1,4 +1,5 @@
-from utils import read_video, save_video, measure_distance, convert_pixel_distance_to_meters, draw_player_stats
+from utils import read_video, save_video, play_video, extract_player_names, measure_distance, convert_pixel_distance_to_meters, \
+    draw_player_stats
 from trackers import PlayerTracker, BallTracker
 from court_line_detector import CourtLineDetector
 from mini_court import MiniCourt
@@ -36,7 +37,6 @@ def main():
     mini_court = MiniCourt(video_frames[0])
     # Detect ball short
     ball_shot_frames = ball_tracker.get_ball_shot_frames(ball_detections)
-    print(ball_shot_frames)
     # Convert positions to mini court positions
     player_mini_court_detections, ball_mini_court_detections = mini_court.convert_bounding_boxes_to_mini_court_coordinates(
         player_detections, ball_detections, court_keypoints)
@@ -130,13 +130,15 @@ def main():
     output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, ball_mini_court_detections,
                                                                color=(0, 255, 255))
     # Draw player stats
-    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df)
+    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df, input_video_path)
 
     ## Draw frame on top left corner
     for i, frame in enumerate(output_video_frames):
         cv2.putText(frame, f"Frame: {i}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-    save_video(output_video_frames, "output_videos/output_video.avi")
+    output_video_path = "output_videos/output_video.avi"
+    save_video(output_video_frames, output_video_path)
+    play_video(output_video_path)
 
 
 if __name__ == "__main__":

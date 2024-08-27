@@ -1,8 +1,9 @@
 import numpy as np
 import cv2
+from utils import extract_player_names
 
 
-def draw_player_stats(output_video_frames, player_stats):
+def draw_player_stats(output_video_frames, player_stats, path_video):
     for index, row in player_stats.iterrows():
         player_1_shot_speed = row['player_1_last_shot_speed']
         player_2_shot_speed = row['player_2_last_shot_speed']
@@ -28,8 +29,8 @@ def draw_player_stats(output_video_frames, player_stats):
         alpha = 0.5
         cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
         output_video_frames[index] = frame
-
-        text = "     Player 1     Player 2"
+        player_1, player_2 = extract_player_names(path_video)
+        text = "     "+player_1+"     "+player_2+""
         output_video_frames[index] = cv2.putText(output_video_frames[index], text, (start_x + 80, start_y + 30),
                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
