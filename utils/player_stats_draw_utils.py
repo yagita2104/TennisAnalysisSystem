@@ -26,10 +26,10 @@ def draw_player_stats(output_video_frames, player_stats, path_video):
 
         overlay = frame.copy()
         cv2.rectangle(overlay, (start_x, start_y), (end_x, end_y), (0, 0, 0), -1)
-        alpha = 0.5
-        cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
+        cv2.addWeighted(overlay, 0.5, frame, 0.5, 0, frame)
         output_video_frames[index] = frame
         player_1, player_2 = extract_player_names(path_video)
+
         text = "     "+player_1+"     "+player_2+""
         output_video_frames[index] = cv2.putText(output_video_frames[index], text, (start_x + 80, start_y + 30),
                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
