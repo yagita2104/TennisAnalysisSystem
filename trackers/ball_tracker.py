@@ -49,7 +49,8 @@ class BallTracker:
                     elif positive_position_change and positive_position_change_following_frame:
                         change_count += 1
                 if change_count > minimum_change_frames_for_hit - 1:
-                    df_ball_positions['ball_hit'].iloc[i] = 1
+                    # df_ball_positions['ball_hit'].iloc[i] = 1
+                    df_ball_positions.loc[i, 'ball_hit'] = 1
         frame_nums_with_ball_hits = df_ball_positions[df_ball_positions['ball_hit'] == 1].index.tolist()
         return frame_nums_with_ball_hits
 

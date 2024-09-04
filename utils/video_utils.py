@@ -2,9 +2,8 @@ import cv2
 import os
 import webbrowser
 import pytesseract
-import re  # Thư viện hỗ trợ biểu thức chính quy
+import re
 
-# Cài đặt đường dẫn tới tesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 
@@ -21,7 +20,7 @@ def read_video(video_path):
 
 
 def save_video(output_video_frames, output_video_path):
-    fourcc = cv2.VideoWriter.fourcc(*'AVC1')
+    fourcc = cv2.VideoWriter.fourcc(*'X264')
     out = cv2.VideoWriter(output_video_path, fourcc, 24,
                           (output_video_frames[0].shape[1], output_video_frames[0].shape[0]))
     for frame in output_video_frames:

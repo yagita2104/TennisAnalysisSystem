@@ -15,7 +15,7 @@ def main():
     video_frames = read_video(input_video_path)
 
     # Detect player and Ball
-    player_tracker = PlayerTracker(model_path='models/yolov8x')
+    player_tracker = PlayerTracker(model_path='yolov8x')
     ball_tracker = BallTracker(model_path='models/yolov8_best.pt')
 
     player_detections = player_tracker.detect_frames(video_frames, read_from_stubs=True,
@@ -130,7 +130,8 @@ def main():
     output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, ball_mini_court_detections,
                                                                color=(0, 255, 255))
     # Draw player stats
-    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df, input_video_path)
+    player_name = extract_player_names(input_video_path)
+    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df, player_name)
 
     ## Draw frame on top left corner
     for i, frame in enumerate(output_video_frames):

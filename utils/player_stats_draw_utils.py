@@ -3,7 +3,7 @@ import cv2
 from utils import extract_player_names
 
 
-def draw_player_stats(output_video_frames, player_stats, path_video):
+def draw_player_stats(output_video_frames, player_stats, player_name):
     for index, row in player_stats.iterrows():
         player_1_shot_speed = row['player_1_last_shot_speed']
         player_2_shot_speed = row['player_2_last_shot_speed']
@@ -28,9 +28,9 @@ def draw_player_stats(output_video_frames, player_stats, path_video):
         cv2.rectangle(overlay, (start_x, start_y), (end_x, end_y), (0, 0, 0), -1)
         cv2.addWeighted(overlay, 0.5, frame, 0.5, 0, frame)
         output_video_frames[index] = frame
-        player_1, player_2 = extract_player_names(path_video)
 
-        text = "     "+player_1+"     "+player_2+""
+
+        text = "     "+player_name[0]+"     "+player_name[1]+""
         output_video_frames[index] = cv2.putText(output_video_frames[index], text, (start_x + 80, start_y + 30),
                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 

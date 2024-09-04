@@ -10,17 +10,17 @@ import pandas as pd
 import constants
 
 
-def main(input_video_path):
+def main(input_video_path, status_stub):
     # Read video
     video_frames = read_video(input_video_path)
 
     # Detect player and Ball
-    player_tracker = PlayerTracker(model_path='models/yolov8x')
+    player_tracker = PlayerTracker(model_path='yolov8x')
     ball_tracker = BallTracker(model_path='models/yolov8_best.pt')
 
-    player_detections = player_tracker.detect_frames(video_frames, read_from_stubs=True,
+    player_detections = player_tracker.detect_frames(video_frames, read_from_stubs=status_stub,
                                                      stub_path="tracker_stubs/player_detections.pkl")
-    ball_detections = ball_tracker.detect_frames(video_frames, read_from_stubs=True,
+    ball_detections = ball_tracker.detect_frames(video_frames, read_from_stubs=status_stub,
                                                  stub_path="tracker_stubs/ball_detections.pkl")
 
     ball_detections = ball_tracker.interpolate_ball_detection(ball_detections)
@@ -130,7 +130,8 @@ def main(input_video_path):
     output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, ball_mini_court_detections,
                                                                color=(0, 255, 255))
     # Draw player stats
-    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df, input_video_path)
+    player_name = extract_player_names(input_video_path)
+    output_video_frames = draw_player_stats(output_video_frames, player_stats_data_df, player_name)
 
     ## Draw frame on top left corner
     for i, frame in enumerate(output_video_frames):
@@ -143,8 +144,12 @@ def main(input_video_path):
 
 demo = gr.Interface(
     fn=main,
-    inputs=gr.Video(),
-    outputs="playable_video",)
+    inputs=[
+        gr.Video(),
+        gr.Checkbox(label="Read from stubs", value=True)
+    ],
+    outputs="playable_video",
+)
 
 if __name__ == "__main__":
     demo.launch()
