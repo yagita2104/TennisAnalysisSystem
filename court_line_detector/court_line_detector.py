@@ -2,9 +2,6 @@ import torch
 import torchvision.transforms as transforms
 import cv2
 from torchvision import models
-import numpy as np
-from efficientnet_pytorch import EfficientNet
-import torch.nn as nn
 
 
 class CourtLineDetector:

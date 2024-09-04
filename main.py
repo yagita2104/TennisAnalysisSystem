@@ -136,7 +136,7 @@ def main():
     for i, frame in enumerate(output_video_frames):
         cv2.putText(frame, f"Frame: {i}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-    output_video_path = "output_videos/output_video.avi"
+    output_video_path = "output_videos/output_video.mp4"
     save_video(output_video_frames, output_video_path)
     play_video(output_video_path)
 
