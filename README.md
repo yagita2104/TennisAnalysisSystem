@@ -1,7 +1,7 @@
 # Tennis Analysis
 
 ## Giới thiệu
-Dự án này phân tích những người chơi Tennis trong một video để đo tốc độ, tốc độ đánh bóng và số lần đánh của họ. Dự án này sẽ phát hiện người chơi và quả bóng tennis bằng YOLO, đồng thời sử dụng CNN để trích xuất các điểm chính của sân. Dự án thực hành này là sự lựa chọn hoàn hảo để trau dồi kỹ năng học máy và thị giác máy tính của bạn.
+Dự án này phân tích những người chơi Tennis trong một video để đo tốc độ, tốc độ đánh bóng và số lần đánh của họ. Dự án này sẽ phát hiện người chơi và quả bóng tennis bằng YOLO, đồng thời sử dụng CNN để trích xuất các điểm chính của sân. 
 ## Kết quả
 Đây là ảnh chụp màn hình video kết quả:
 
@@ -19,8 +19,11 @@ Dự án này phân tích những người chơi Tennis trong một video để 
 * Mô hình phát hiện bóng trên sân tennis sử dụng YOLO: training/tennis_ball_detector_training.ipynb
 * Mô hình phát hiện điểm chính trên sân tennis sử dụng Pytorch: training/tennis_court_keypoints_training.ipynb
 
+## Cách chạy chương trình
+* Sử dụng file interface.py để chạy, thông qua gradio mở 1 locallhost ngay trên trình duyệt.
+
 ## Các yêu cầu về phiên bản, thư viện
-* Python 3.11
+* python 3.11
 * ultralytics
 * pytorch
 * pandas
