@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-from utils import extract_player_names
 
 
 def draw_player_stats(output_video_frames, player_stats, player_name):
